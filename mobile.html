@@ -17,7 +17,7 @@
    <script>
       let initial_posX = null;
       let initial_posY = null;
-      let finger_surface_margin = 120;
+      let finger_surface_margin = 12;
       let start_time   = undefined;
       let end_time     = undefined;
 
@@ -65,9 +65,9 @@
           int = setInterval(() => {
             x += 10;
             if(x < 30){
-               console.log('TAP ');
+               alert('TAP')
             }else if(x > 30){
-               console.log('DETACH ELEMENT')
+              alert('long CLICK')
             }
           }, 100)
       }

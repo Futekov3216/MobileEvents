@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <style>
+    body{
+       height: 2500px;
+    }
+    .inner{
+       width: 100%;
+       height: 80px;
+       border: 1px solid black;
+    }
+   </style>
+   <script>
+      let initial_posX = null;
+      let initial_posY = null;
+      let finger_surface_margin = 120;
+      let start_time   = undefined;
+      let end_time     = undefined;
+
+      let checkEvent = function(e){
+         //ADDING THE INITIAL CLICK POSITION
+         let current_posX = Math.floor(e.changedTouches[0].clientX);
+         let current_posY = Math.floor(e.changedTouches[0].clientY);
+
+         if(initial_posX == null || initial_posY == null){
+            initial_posX = Math.floor(e.changedTouches[0].clientX);
+            initial_posY = Math.floor(e.changedTouches[0].clientY);
+         }
+         // DETECT IF THE USER WHANT TO USE ONLY TOUCH 
+         // BUT MOVING WITH THE SURFACE OF THE FINGER
+         // UP FINGER SURFACE
+         if(((initial_posX - current_posX) > finger_surface_margin ||
+             (initial_posX - current_posX) < -finger_surface_margin) ||
+             ((initial_posY - current_posY) > finger_surface_margin ||
+             (initial_posY - current_posY) < -finger_surface_margin)){
+               console.log('move');
+               return e.returnValue = true
+         }
+         return e.returnValue = false
+      }
+
+      var int;
+      var into = false;
+      var x = 0;
+      
+      function startTouch(e){
+         interval(e)
+      }
+
+      function endTouch(e){
+         clearInterval(int)
+         end_time = Math.floor(e.timeStamp)
+         initial_posX = null;
+         initial_posY = null;
+         x = 0;
+      }
+
+
+       function interval (e) {
+          start_time = undefined
+          int = setInterval(() => {
+            x += 10;
+            if(x < 30){
+               console.log('TAP ');
+            }else if(x > 30){
+               console.log('DETACH ELEMENT')
+            }
+          }, 100)
+      }
+
+      // window.oncontextmenu = (e) => { e.preventDefault()}
+      window.addEventListener('touchstart', startTouch, {passive: false});
+      window.addEventListener('touchend', endTouch);
+      window.addEventListener('touchmove',checkEvent, {passive: false})
+
+   </script>
+   <title>Document</title>
+</head>
+<body>
+   <div id="wrapper">
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+      <div class="inner">TEST</div>
+   </div>
+</body>
+</html>

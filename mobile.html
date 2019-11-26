@@ -18,8 +18,6 @@
       let initial_posX = null;
       let initial_posY = null;
       let finger_surface_margin = 12;
-      let start_time   = undefined;
-      let end_time     = undefined;
 
       let checkEvent = function(e){
          //ADDING THE INITIAL CLICK POSITION
@@ -48,33 +46,27 @@
       var x = 0;
       
       function startTouch(e){
-         interval(e)
+         int = setInterval(() => {
+            x += 10;
+            if(x < 30){
+               console.log('TAP ');
+            }else if(x > 30){
+               console.log('DETACH ELEMENT')
+            }
+          }, 100)
       }
 
       function endTouch(e){
+         console.log('x', x);
          clearInterval(int)
-         end_time = Math.floor(e.timeStamp)
          initial_posX = null;
          initial_posY = null;
          x = 0;
       }
 
-
-       function interval (e) {
-          start_time = undefined
-          int = setInterval(() => {
-            x += 10;
-            if(x < 30){
-               alert('TAP')
-            }else if(x > 30){
-              alert('long CLICK')
-            }
-          }, 100)
-      }
-
-      // window.oncontextmenu = (e) => { e.preventDefault()}
-      window.addEventListener('touchstart', startTouch, {passive: false});
-      window.addEventListener('touchend', endTouch);
+      window.oncontextmenu = (e) => { e.preventDefault()}
+      window.addEventListener('touchstart', startTouch,{passive: false});
+      window.addEventListener('touchend',endTouch );
       window.addEventListener('touchmove',checkEvent, {passive: false})
 
    </script>
